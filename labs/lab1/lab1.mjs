@@ -79,15 +79,37 @@ myCaesarSalad.remove('Gurka');
 console.log(JSON.stringify(myCaesarSalad) + '\n');
 
 console.log('\n--- Assignment 3 ---------------------------------------')
-//console.log('En ceasarsallad kostar ' + myCaesarSalad.getPrice() + 'kr');
-// En ceasarsallad kostar 45kr
-//console.log('En ceasarsallad har ' + myCaesarSalad.count('lactose') + ' ingredienser med laktos');
-// En ceasarsallad har 2 ingredienser med laktos
-//console.log('En ceasarsallad har ' + myCaesarSalad.count('extra') + ' tillbehör');
-// En ceasarsallad har 3 tillbehör
 
-/*
+Salad.prototype.getPrice = function() {
+  return Object.values(this.ingredients) //Gets the values of the ingredients object
+  .reduce((total, ingredients) => total + ingredients.price, 0); //Calculates the total price of the ingredients in the Salad
+}
+
+Salad.prototype.count = function(property) {
+  return Object.values(this.ingredients) //Gets the values of the ingredients object
+  .filter(ingredients => ingredients[property]) //Filters out the ingredients that have the property
+  .length; //Returns the length of the filtered array
+}
+
+
+console.log('En ceasarsallad kostar ' + myCaesarSalad.getPrice() + 'kr');
+//En ceasarsallad kostar 45kr
+console.log('En ceasarsallad har ' + myCaesarSalad.count('lactose') + ' ingredienser med laktos');
+//En ceasarsallad har 2 ingredienser med laktos
+console.log('En ceasarsallad har ' + myCaesarSalad.count('extra') + ' tillbehör');
+//En ceasarsallad har 3 tillbehör
+
+
 console.log('\n--- reflection question 3 ---------------------------------------')
+/* Only functions (in this case Salad) have a prototype property.
+This property holds the methods and properties shared by all instances created by that constructor.
+
+Instances have an internal link to the prototype object of their constructor.
+This forms the prototype chain, which is then used for inheritance in JS.
+
+A class is a constructor function with syntactic sugar, meaning it is easier for us to read while not changing the
+prototype based inheritance model of JS.
+*/
 console.log('typeof Salad: ' + typeof Salad);
 console.log('typeof Salad.prototype: ' + typeof Salad.prototype);
 console.log('typeof Salad.prototype.prototype: ' + typeof Salad.prototype.prototype);
@@ -96,7 +118,7 @@ console.log('typeof myCaesarSalad.prototype: ' + typeof myCaesarSalad.prototype)
 console.log('check 1: ' + (Salad.prototype === Object.getPrototypeOf(Salad)));
 console.log('check 2: ' + (Salad.prototype === Object.getPrototypeOf(myCaesarSalad)));
 console.log('check 3: ' + (Object.prototype === Object.getPrototypeOf(Salad.prototype)));
-*/
+
 console.log('\n--- Assignment 4 ---------------------------------------')
 /*
 const singleText = JSON.stringify(myCaesarSalad);
