@@ -36,7 +36,7 @@ console.log('\n--- Assignment 1 ---------------------------------------')
 
 function makeOptions(inv, prop) {
  
- const filteredIngredients = Object.keys(inv)
+ const filteredIngredients = Object.keys(inv) //Gets the keys of the inventory object
  .filter(name => inv[name][prop]) //Filters out the ingredients that have the "prop"
  .sort((a, b) => a.localeCompare(b, "sv", { sensitivity: 'case' })); //Sorts the ingredients alphabetically
 
@@ -53,11 +53,19 @@ console.log(makeOptions(inventory, 'foundation'));
 
 console.log('\n--- Assignment 2 ---------------------------------------')
 class Salad {
-  constructor() { }
-  add(name, properties) { }
-  remove(name) { }
+  constructor() {
+    this.ingredients = {}; //Creates an empty object to store the ingredients
+   }
+  add(name, properties) { 
+    this.ingredients[name] = properties; //Adds the name and properties to this ingredients object
+    return this; //Returns the object for chainability
+  }
+  remove(name) {
+    delete this.ingredients[name]; //Deletes the name and its properties in this ingredients object
+    return this; //Returns the object for chainability
+   }
 }
-/*
+
 let myCaesarSalad = new Salad()
   .add('Sallad', inventory['Sallad'])
   .add('Kycklingfilé', inventory['Kycklingfilé'])
@@ -69,7 +77,7 @@ let myCaesarSalad = new Salad()
 console.log(JSON.stringify(myCaesarSalad) + '\n');
 myCaesarSalad.remove('Gurka');
 console.log(JSON.stringify(myCaesarSalad) + '\n');
-*/
+
 console.log('\n--- Assignment 3 ---------------------------------------')
 //console.log('En ceasarsallad kostar ' + myCaesarSalad.getPrice() + 'kr');
 // En ceasarsallad kostar 45kr
