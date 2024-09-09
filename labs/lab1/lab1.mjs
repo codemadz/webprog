@@ -53,17 +53,40 @@ console.log(makeOptions(inventory, 'foundation'));
 
 console.log('\n--- Assignment 2 ---------------------------------------')
 class Salad {
-  constructor() {
-    this.ingredients = {}; //Creates an empty object to store the ingredients
-   }
-  add(name, properties) { 
+  constructor(arg) {
+    if (arg instanceof Salad) {
+      this.ingredients = { ...arg.ingredients };
+    } else {
+      this.ingredients = {};
+    }
+  }
+  add(name, properties) {
     this.ingredients[name] = properties; //Adds the name and properties to this ingredients object
     return this; //Returns the object for chainability
   }
   remove(name) {
     delete this.ingredients[name]; //Deletes the name and its properties in this ingredients object
     return this; //Returns the object for chainability
-   }
+  }
+  static parse(s) {
+    if (typeof s !== 'string') { //Checks if the input is a string
+      return console.log('Input is not a string');
+    }
+
+    const data = JSON.parse(s); //Parses the string to a JSON object
+
+    if (Array.isArray(data)) { //Checks if the data is an array
+      return data.map(saladInArray => {
+        const salad = new Salad(); //Creates a new Salad object
+        salad.ingredients = { ...saladInArray.ingredients }; //Copies the ingredients to the salad using the spread operator
+        return salad;
+      });
+    } else {
+      const salad = new Salad(); //Creates a new Salad
+      salad.ingredients = { ...data.ingredients }; //Copies the ingredients to the salad
+      return salad; //Returns the salad
+    }
+  }
 }
 
 let myCaesarSalad = new Salad()
@@ -91,7 +114,6 @@ Salad.prototype.count = function(property) {
   .length; //Returns the length of the filtered array
 }
 
-
 console.log('En ceasarsallad kostar ' + myCaesarSalad.getPrice() + 'kr');
 //En ceasarsallad kostar 45kr
 console.log('En ceasarsallad har ' + myCaesarSalad.count('lactose') + ' ingredienser med laktos');
@@ -99,13 +121,12 @@ console.log('En ceasarsallad har ' + myCaesarSalad.count('lactose') + ' ingredie
 console.log('En ceasarsallad har ' + myCaesarSalad.count('extra') + ' tillbehör');
 //En ceasarsallad har 3 tillbehör
 
-
 console.log('\n--- reflection question 3 ---------------------------------------')
 /* Only functions (in this case Salad) have a prototype property.
 This property holds the methods and properties shared by all instances created by that constructor.
 
 Instances have an internal link to the prototype object of their constructor.
-This forms the prototype chain, which is then used for inheritance in JS.
+This forms the prototype chain, which is then used for inheritance.
 
 A class is a constructor function with syntactic sugar, meaning it is easier for us to read while not changing the
 prototype based inheritance model of JS.
@@ -120,7 +141,7 @@ console.log('check 2: ' + (Salad.prototype === Object.getPrototypeOf(myCaesarSal
 console.log('check 3: ' + (Object.prototype === Object.getPrototypeOf(Salad.prototype)));
 
 console.log('\n--- Assignment 4 ---------------------------------------')
-/*
+
 const singleText = JSON.stringify(myCaesarSalad);
 const arrayText = JSON.stringify([myCaesarSalad, myCaesarSalad]);
 
@@ -136,7 +157,7 @@ console.log('Salad.parse(arrayText)\n' + JSON.stringify(arrayCopy));
 singleCopy.add('Gurka', inventory['Gurka']);
 console.log('originalet kostar ' + myCaesarSalad.getPrice() + ' kr');
 console.log('kopian med gurka kostar ' + singleCopy.getPrice() + ' kr');
-*/
+
 console.log('\n--- Assignment 5 ---------------------------------------')
 /*
 let myGourmetSalad = new GourmetSalad()
