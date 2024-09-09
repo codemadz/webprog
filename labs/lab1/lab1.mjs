@@ -124,10 +124,8 @@ console.log('En ceasarsallad har ' + myCaesarSalad.count('extra') + ' tillbehör
 console.log('\n--- reflection question 3 ---------------------------------------')
 /* Only functions (in this case Salad) have a prototype property.
 This property holds the methods and properties shared by all instances created by that constructor.
-
 Instances have an internal link to the prototype object of their constructor.
 This forms the prototype chain, which is then used for inheritance.
-
 A class is a constructor function with syntactic sugar, meaning it is easier for us to read while not changing the
 prototype based inheritance model of JS.
 */
@@ -159,7 +157,25 @@ console.log('originalet kostar ' + myCaesarSalad.getPrice() + ' kr');
 console.log('kopian med gurka kostar ' + singleCopy.getPrice() + ' kr');
 
 console.log('\n--- Assignment 5 ---------------------------------------')
-/*
+
+class GourmetSalad extends Salad {
+  add(name, properties, size = 1) {
+    const propertiesWithSize = { ...properties, size }; //Copies the properties and adds the size
+    if (this.ingredients[name]) { //Checks if the ingredient already exists
+      this.ingredients[name].size += size;  //Adds the size to the existing ingredient
+    } else {
+      this.ingredients[name] = propertiesWithSize; //Adds the ingredient to the ingredients object
+    }
+    return this;
+  }
+
+  getPrice() {
+    return Object.values(this.ingredients).reduce((total, ingredient) => { //Gets the values of the ingredients object
+      return total + ingredient.price * ingredient.size; //Calculates the total price of the ingredients in the Salad
+    }, 0) //Initial value of the total
+  }
+}
+
 let myGourmetSalad = new GourmetSalad()
   .add('Sallad', inventory['Sallad'], 0.5)
   .add('Kycklingfilé', inventory['Kycklingfilé'], 2)
@@ -170,7 +186,7 @@ let myGourmetSalad = new GourmetSalad()
 console.log('Min gourmetsallad med lite bacon kostar ' + myGourmetSalad.getPrice() + ' kr');
 myGourmetSalad.add('Bacon', inventory['Bacon'], 1)
 console.log('Med extra bacon kostar den ' + myGourmetSalad.getPrice() + ' kr');
-*/
+
 console.log('\n--- Assignment 6 ---------------------------------------')
 /*
 console.log('Min gourmetsallad har id: ' + myGourmetSalad.id);
