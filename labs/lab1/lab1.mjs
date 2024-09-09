@@ -2,6 +2,8 @@
 /**
  * Reflection question 1
  * your answer goes here
+ * 
+ * The absense of a property basically means it is set to false.
  */
 
 import inventory from './inventory.mjs';
@@ -20,12 +22,31 @@ for (const name in inventory) {
 }
 /**
  * Reflection question 2
+ * 
+ * The "Object.keys()" returns an array of the object's own enumerable property names.
+ * It does not include inherited properties from the object's prototype chain.
+ * forEach() is then used to iterate over this array, 
+ * meaning it only works on properties directly present on the object.
+ * 
+ * "for...in" iterates over ALL enumerable properties, including both 
+ * the object's own properties and any inherited enumerable properties from its prototype chain.
  */
 
 console.log('\n--- Assignment 1 ---------------------------------------')
 
 function makeOptions(inv, prop) {
-  return 'TODO';
+ 
+ const filteredIngredients = Object.keys(inv)
+ .filter(name => inv[name][prop]) //Filters out the ingredients that have the "prop"
+ .sort((a, b) => a.localeCompare(b, "sv", { sensitivity: 'case' })); //Sorts the ingredients alphabetically
+
+ const options = filteredIngredients.map(name => { //Maps the ingredients to an option element
+  const price = inv[name].price; //Gets the price of the ingredient
+  return `<option value=${name} key=${name}> ${name}, ${price}kr</option>` //Returns the option element with the name and price
+ });
+
+
+return options;
 }
 
 console.log(makeOptions(inventory, 'foundation'));
