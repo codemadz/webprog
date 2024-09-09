@@ -7,6 +7,7 @@
  */
 
 import inventory from './inventory.mjs';
+import { v4 as uuidv4 } from 'uuid';
 console.log('\n=== beginning of printout ================================')
 console.log('inventory:', inventory);
 
@@ -53,7 +54,13 @@ console.log(makeOptions(inventory, 'foundation'));
 
 console.log('\n--- Assignment 2 ---------------------------------------')
 class Salad {
+
+  static instanceCounter = 0;
+
   constructor(arg) {
+    this.id = 'salad_' + Salad.instanceCounter++;
+    this.uuid = uuidv4();
+
     if (arg instanceof Salad) {
       this.ingredients = { ...arg.ingredients };
     } else {
@@ -79,11 +86,13 @@ class Salad {
       return data.map(saladInArray => {
         const salad = new Salad(); //Creates a new Salad object
         salad.ingredients = { ...saladInArray.ingredients }; //Copies the ingredients to the salad using the spread operator
+        salad.uuid = saladInArray.uuid; //Preserves the uuid
         return salad;
       });
     } else {
       const salad = new Salad(); //Creates a new Salad
       salad.ingredients = { ...data.ingredients }; //Copies the ingredients to the salad
+      salad.uuid = data.uuid; //Preserves the uuid
       return salad; //Returns the salad
     }
   }
@@ -188,17 +197,20 @@ myGourmetSalad.add('Bacon', inventory['Bacon'], 1)
 console.log('Med extra bacon kostar den ' + myGourmetSalad.getPrice() + ' kr');
 
 console.log('\n--- Assignment 6 ---------------------------------------')
-/*
+
 console.log('Min gourmetsallad har id: ' + myGourmetSalad.id);
 console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid);
-*/
 
 /**
  * Reflection question 4
+ * Salad.instanceCounter is stored in the Salad class,
+ * not in an instance of the class.
  */
 /**
  * Reflection question 5
+ * Yes, you can make the id property read-only.
  */
 /**
  * Reflection question 6
+ * Properties can be made private using the # prefix.
  */
