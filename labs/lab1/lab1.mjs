@@ -26,10 +26,10 @@ for (const name in inventory) {
  * 
  * The "Object.keys()" returns an array of the object's own enumerable property names.
  * It does not include inherited properties from the object's prototype chain.
- * forEach() is then used to iterate over this array, 
+ * forEach() is then used to iterate over this array,
  * meaning it only works on properties directly present on the object.
  * 
- * "for...in" iterates over ALL enumerable properties, including both 
+ * "for...in" iterates over ALL enumerable properties, including both
  * the object's own properties and any inherited enumerable properties from its prototype chain.
  */
 
