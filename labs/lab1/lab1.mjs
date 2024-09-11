@@ -72,7 +72,7 @@ class Salad {
     return this; //Returns the object for chainability
   }
   remove(name) {
-    delete this.ingredients[name]; //Deletes the name and its properties in this ingredients object
+    delete this.ingredients[name]; //Deletes the ingredient
     return this; //Returns the object for chainability
   }
   static parse(s) {
