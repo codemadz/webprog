@@ -39,7 +39,7 @@ function makeOptions(inv, prop) {
  
  const filteredIngredients = Object.keys(inv) //Gets the keys of the inventory object
  .filter(name => inv[name][prop]) //Filters out the ingredients that have the "prop"
- .sort((a, b) => a.localeCompare(b, "sv", { sensitivity: 'case' })); //Sorts the ingredients alphabetically
+ .sort((a, b) => a.localeCompare(b, "sv", { sensitivity: 'case' })); //Sorts these ingredients alphabetically
 
  const options = filteredIngredients.map(name => { //Maps the ingredients to an option element
   const price = inv[name].price; //Gets the price of the ingredient
@@ -76,24 +76,23 @@ class Salad {
     return this; //Returns the object for chainability
   }
   static parse(s) {
-    if (typeof s !== 'string') { //Checks if the input is a string
-      return console.log('Input is not a string');
-    }
+    if (typeof s === 'string') { //Checks if the input is a string
 
-    const data = JSON.parse(s); //Parses the string to a JSON object
+      const data = JSON.parse(s); //Parses the string to a JSON object
 
-    if (Array.isArray(data)) { //Checks if the data is an array
-      return data.map(saladInArray => {
-        const salad = new Salad(); //Creates a new Salad object
-        salad.ingredients = { ...saladInArray.ingredients }; //Copies the ingredients to the salad using the spread operator
-        salad.uuid = saladInArray.uuid; //Preserves the uuid
-        return salad;
-      });
-    } else {
-      const salad = new Salad(); //Creates a new Salad
-      salad.ingredients = { ...data.ingredients }; //Copies the ingredients to the salad
-      salad.uuid = data.uuid; //Preserves the uuid
-      return salad; //Returns the salad
+      if (Array.isArray(data)) { //Checks if the data is an array
+        return data.map(saladInArray => {
+          const salad = new Salad(); //Creates a new Salad object
+          salad.ingredients = { ...saladInArray.ingredients }; //Copies the ingredients to the salad using the spread operator
+          salad.uuid = saladInArray.uuid; //Preserves the uuid
+          return salad;
+        });
+      } else {
+        const salad = new Salad(); //Creates a new Salad
+        salad.ingredients = { ...data.ingredients }; //Copies the ingredients to the salad
+        salad.uuid = data.uuid; //Preserves the uuid
+        return salad; //Returns the salad
+      }
     }
   }
 }
