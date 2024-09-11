@@ -173,7 +173,7 @@ class GourmetSalad extends Salad {
     if (this.ingredients[name]) { //Checks if the ingredient already exists
       this.ingredients[name].size += size;  //Adds the size to the existing ingredient
     } else {
-      this.ingredients[name] = propertiesWithSize; //Adds the ingredient to the ingredients object
+      this.ingredients[name] = propertiesWithSize; //Adds the propertiesWithSize to the ingredients
     }
     return this;
   }
