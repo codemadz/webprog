@@ -14,10 +14,10 @@ function App() {
       </header>
 
       <div className="row flex-grow-1 align-items-center justify-content-center m-2">
-        <div className="col-12">
+        <div className="col-12 mb-2">
           <ViewOrder inventory={inventory} salads={salads} />
         </div>
-        <div className="col-12">
+        <div className="col-12 mt-2">
           <ComposeSalad inventory={inventory} salads={salads} setSalads={setSalads} />
         </div>
       </div>

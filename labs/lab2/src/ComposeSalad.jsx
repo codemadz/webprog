@@ -43,12 +43,12 @@ function ComposeSalad({inventory, salads, setSalads}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if(validateForm()) {
-      alert('Sallad tillagd i varukorgen!'), console.log(foundation, protein, extra, dressing);
       createSalad();
       setFoundation({});
       setProtein({});
       setExtra([]);
       setDressing({});
+      alert('Sallad tillagd i varukorgen!');
     }
   }
 
