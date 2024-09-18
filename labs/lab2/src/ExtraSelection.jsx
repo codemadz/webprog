@@ -3,7 +3,7 @@ function ExtraSelection({ inventory, extra, setExtra }) {
   const extras = Object.keys(inventory)
     .filter(name => inventory[name].extra)
     .sort((a, b) => a.localeCompare(b, 'sv', { sensitivity: 'case' }))
-    .map((name, index) => {
+    .map(name => {
       return (
         <div key={name} className="form-check">
           <input
