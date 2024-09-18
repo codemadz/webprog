@@ -22,9 +22,17 @@ function ExtraSelection({ inventory, extra, setExtra }) {
     });
 
   function handleExtraChange(event) {
-    const newExtra = { ...extra, [event.target.name]: event.target.checked };
-    setExtra(newExtra);
-  }
+    const name = event.target.name;
+    const checked = event.target.checked;
+    const newExtras = { ...extra };
+    
+    if (checked) {
+      newExtras[name] = true;
+    } else {
+      delete newExtras[name];
+    }
+      setExtra(newExtras);
+    }
 
   const columns = [];
   for (let i = 0; i < extras.length; i += 7) {
