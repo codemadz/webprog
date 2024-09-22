@@ -7,6 +7,7 @@ function ComposeSalad({inventory, salads, setSalads}) {
   const [protein, setProtein] = useState({});
   const [extra, setExtra] = useState([]);
   const [dressing, setDressing] = useState({});
+  const [touched, setTouched] = useState(false);
 
   const foundationList = Object.keys(inventory).filter(name => inventory[name].foundation)
   .sort((a, b) => a.localeCompare(b, "sv", { sensitivity: 'case' }))
@@ -49,19 +50,24 @@ function ComposeSalad({inventory, salads, setSalads}) {
   }
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    createSalad();
-    setFoundation({});
-    setProtein({});
-    setExtra([]);
-    setDressing({});
-    alert('Sallad tillagd i varukorgen!');
+    if(!event.target.checkValidity()){
+      event.preventDefault();
+      setTouched(true);
+    } else {
+      event.preventDefault();
+      setTouched(false);
+      createSalad();
+      setFoundation({});
+      setProtein({});
+      setExtra([]);
+      setDressing({});
+    }
   }
 
   return (
       <div className="row h-200 p-5 bg-light border rounded-3">
         <h2>Välj innehållet i din sallad</h2> 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} noValidate className={touched ? "was-validated" : ""}>
           <fieldset className="col-md-12">
           <SelectIngredient label="Bas" onChange={handleFoundationChange} value={foundation} options={foundationList}/>
           <SelectIngredient label="Protein" onChange={handleProtein} value={protein} options={proteinList}/>

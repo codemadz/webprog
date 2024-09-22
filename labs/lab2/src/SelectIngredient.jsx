@@ -10,6 +10,7 @@ function SelectIngredient({ label, onChange, value, options }) {
             <option value="">Välj {label}</option>
             {options}
         </select>
+        <div className="invalid-feedback">Vänligen välj {label}.</div>
       </fieldset>
 ); }
 
