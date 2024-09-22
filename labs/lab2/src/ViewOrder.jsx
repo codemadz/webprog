@@ -15,7 +15,9 @@ function ViewOrder({ inventory, salads }) {
                 ingredient = inventory[key];
                 name = key.toString();
               }
-              totalPrice += ingredient.price;
+              if (ingredient && ingredient.price !== undefined) {
+                totalPrice += ingredient.price;
+              }
               return name;
             })
             .join(', ');

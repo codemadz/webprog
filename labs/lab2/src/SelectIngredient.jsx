@@ -6,7 +6,7 @@ function SelectIngredient({ label, onChange, value, options }) {
     return (
       <fieldset className="col-md-12">
         <label htmlFor={id} className="form-label mt-2">{label}</label>
-        <select onChange={onChange} value={value} className="form-select" id={id}>
+        <select required onChange={onChange} value={value} className="form-select" id={id}>
             <option value="">Välj {label}</option>
             {options}
         </select>

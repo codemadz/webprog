@@ -1,14 +1,42 @@
 import { useState } from 'react';
-import FoundationSelection from './FoundationSelection';
-import ProteinSelection from './ProteinSelection';
 import ExtraSelection from './ExtraSelection';
-import DressingSelection from './DessingSelection';
+import SelectIngredient from './SelectIngredient';
 
 function ComposeSalad({inventory, salads, setSalads}) {
   const [foundation, setFoundation] = useState({});
   const [protein, setProtein] = useState({});
   const [extra, setExtra] = useState([]);
   const [dressing, setDressing] = useState({});
+
+  const foundationList = Object.keys(inventory).filter(name => inventory[name].foundation)
+  .sort((a, b) => a.localeCompare(b, "sv", { sensitivity: 'case' }))
+  .map(name => {
+    return <option key={name} value={name}>{name}, {inventory[name].price}kr</option>
+  });
+
+  function handleFoundationChange(event) {
+   setFoundation(event.target.value);
+  }
+
+  const proteinList = Object.keys(inventory).filter(name => inventory[name].protein)
+  .sort((a, b) => a.localeCompare(b, "sv", { sensitivity: 'case' }))
+  .map(name => {
+    return <option key={name} value={name}>{name}, {inventory[name].price}kr</option>
+  });
+
+  function handleProtein(event){
+    setProtein(event.target.value);
+  }
+
+  const dressingList = Object.keys(inventory).filter(name => inventory[name].dressing)
+    .sort((a, b) => a.localeCompare(b, "sv", { sensitivity: 'case' }))
+    .map(name => {
+        return <option key={name} value={name}>{name}, {inventory[name].price}kr</option>
+    });
+
+  function handleDressingChange(event){
+        setDressing(event.target.value);
+  }
 
   const createSalad = () => {
     const salad = {
@@ -20,48 +48,28 @@ function ComposeSalad({inventory, salads, setSalads}) {
     setSalads([...salads, salad]);
   }
 
-  const validateForm = () => {
-    if (Object.keys(foundation).length === 0) {
-      alert('Välj en bas');
-      return false;
-    }
-    if (Object.keys(protein).length === 0) {
-      alert('Välj ett protein');
-      return false;
-    }
-    if (Object.keys(extra).length < 2) {
-      alert('Välj minst två tillbehör');
-      return false;
-    }
-    if (Object.keys(dressing).length === 0) {
-      alert('Välj en dressing');
-      return false;
-    }
-    return true;
-  }
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(validateForm()) {
-      createSalad();
-      setFoundation({});
-      setProtein({});
-      setExtra([]);
-      setDressing({});
-      alert('Sallad tillagd i varukorgen!');
-    }
+    createSalad();
+    setFoundation({});
+    setProtein({});
+    setExtra([]);
+    setDressing({});
+    alert('Sallad tillagd i varukorgen!');
   }
 
   return (
       <div className="row h-200 p-5 bg-light border rounded-3">
-        <h2>Välj innehållet i din sallad</h2>
-        <fieldset className="col-md-12">
-        <FoundationSelection inventory={inventory} foundation={foundation} setFoundation={setFoundation}/>
-        <ProteinSelection inventory={inventory} protein={protein} setProtein={setProtein}/>
-        <ExtraSelection inventory={inventory} extra={extra} setExtra={setExtra}/>
-        <DressingSelection inventory={inventory} dressing={dressing} setDressing={setDressing}/>
-        <button type="submit" className="btn btn-primary mt-4" onClick={handleSubmit}>Beställ</button>
-        </fieldset>
+        <h2>Välj innehållet i din sallad</h2> 
+        <form onSubmit={handleSubmit}>
+          <fieldset className="col-md-12">
+          <SelectIngredient label="Bas" onChange={handleFoundationChange} value={foundation} options={foundationList}/>
+          <SelectIngredient label="Protein" onChange={handleProtein} value={protein} options={proteinList}/>
+          <ExtraSelection inventory={inventory} extra={extra} setExtra={setExtra}/>
+          <SelectIngredient label="Dressing" onChange={handleDressingChange} value={dressing} options={dressingList}/>
+          <button type="submit" className="btn btn-primary mt-4">Beställ</button>
+          </fieldset>
+        </form>
       </div>
   );
 }
