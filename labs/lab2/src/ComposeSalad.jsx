@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ExtraSelection from './ExtraSelection';
 import SelectIngredient from './SelectIngredient';
+import { useOutletContext, useNavigate } from 'react-router-dom';
 
-function ComposeSalad({inventory, salads, setSalads}) {
+function ComposeSalad() {
+  const { inventory, salads, setSalads } = useOutletContext();
+  const [success, setSuccess] = useState(false);
   const [foundation, setFoundation] = useState({});
   const [protein, setProtein] = useState({});
   const [extra, setExtra] = useState([]);
   const [dressing, setDressing] = useState({});
   const [touched, setTouched] = useState(false);
+  const navigate = useNavigate();
 
   const foundationList = Object.keys(inventory).filter(name => inventory[name].foundation)
   .sort((a, b) => a.localeCompare(b, "sv", { sensitivity: 'case' }))
@@ -53,6 +57,7 @@ function ComposeSalad({inventory, salads, setSalads}) {
     if(!event.target.checkValidity()){
       event.preventDefault();
       setTouched(true);
+      setSuccess(false);
     } else {
       event.preventDefault();
       setTouched(false);
@@ -61,11 +66,18 @@ function ComposeSalad({inventory, salads, setSalads}) {
       setProtein({});
       setExtra([]);
       setDressing({});
+      setSuccess(true);
     }
   }
 
+  useEffect(() => {
+    if(success){
+      navigate('/view-order');
+    }
+  }, [success]);
+
   return (
-      <div className="row h-200 p-5 bg-light border rounded-3">
+      <div className="row h-200 m-2 p-5 bg-light border rounded-3">
         <h2>Välj innehållet i din sallad</h2> 
         <form onSubmit={handleSubmit} noValidate className={touched ? "was-validated" : ""}>
           <fieldset className="col-md-12">
