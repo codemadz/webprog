@@ -13,6 +13,12 @@ const router = createBrowserRouter([
       }, {
         path: "view-order",
         Component: ViewOrder,
+        children: [
+          {
+            path: "confirm/:orderId",
+            Component: ViewOrder,
+          }
+        ]
       }, {
         index: true,
         element: <p>Welcome to my own salad bar</p>

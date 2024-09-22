@@ -40,13 +40,13 @@ function App() {
 
 
   return (
-    <div className="container-fluid m-2 full-height">
-      <header className="pb-3 mb-4 border-bottom">
+    <div className="container-fluid h-100 w-100 d-flex flex-column m-2">
+      <header className="p-3 mb-4 bg-white border-bottom fixed-top d-flex justify-content-between align-items-center">
         <span className="fs-4">Salladsbaren deluxe</span>
+        <Navbar />
       </header>
-      <Navbar />
       <Outlet context={{ inventory, salads, setSalads, shoppingBasket }}/>
-      <footer className="pb-2 pt-2 mt-2 text-muted border-top">
+      <footer className="p-2 mt-2 text-muted border-top fixed-bottom">
         EDAF90 - webprogrammering
       </footer>
     </div>

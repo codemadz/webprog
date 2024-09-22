@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import ExtraSelection from './ExtraSelection';
 import SelectIngredient from './SelectIngredient';
 import { useOutletContext, useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 function ComposeSalad() {
   const { inventory, salads, setSalads } = useOutletContext();
@@ -72,12 +73,14 @@ function ComposeSalad() {
 
   useEffect(() => {
     if(success){
-      navigate('/view-order');
+      const orderId = uuidv4();
+      alert(`Din sallad är tillagd i varukorgen. Id: ${orderId}`);
+      navigate(`/view-order/confirm/${orderId}`);
     }
   }, [success]);
 
   return (
-      <div className="row h-200 m-2 p-5 bg-light border rounded-3">
+      <div className="row h-200 mb-2 mt-2 p-4 bg-light border rounded-3">
         <h2>Välj innehållet i din sallad</h2> 
         <form onSubmit={handleSubmit} noValidate className={touched ? "was-validated" : ""}>
           <fieldset className="col-md-12">
