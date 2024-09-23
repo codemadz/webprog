@@ -19,36 +19,6 @@ function App() {
     .then((allIngredients) => setInventory(allIngredients));  
   }, []);
   
-  const createShoppingBasket = (salads, inventory) => {
-    return salads.map((salad) => {
-      let totalPrice = 0;
-      let ingredient = {};
-      let name = '';
-      const saladString = Object.entries(salad)
-        .map(([key, value]) => {
-          if (key === 'foundation' || key === 'protein' || key === 'dressing') {
-            ingredient = inventory[value];
-            name = value.toString();
-          } else {
-            ingredient = inventory[key];
-            name = key.toString();
-          }
-          if (ingredient && ingredient.price !== undefined) {
-            totalPrice += ingredient.price;
-          }
-          return name;
-        })
-        .join(', ');
-  
-      return {
-        saladString,
-        totalPrice
-      };
-    });
-  };
-
-  const shoppingBasket = createShoppingBasket(shoppingCart, inventory);
-
   return (
     <div className="container-fluid h-100 w-100 d-flex flex-column m-2">
       <header className="p-3 mb-4 bg-white border-bottom fixed-top d-flex justify-content-between align-items-center">
@@ -58,7 +28,7 @@ function App() {
       {loading ? (
         <BootstrapSpinner />
       ) : (
-        <Outlet context={{ inventory, shoppingCart, setShoppingCart, shoppingBasket }} />
+        <Outlet context={{ inventory, shoppingCart, setShoppingCart }} />
       )}
       <footer className="p-2 mt-2 text-muted border-top fixed-bottom">
         EDAF90 - webprogrammering
