@@ -1,12 +1,23 @@
 import 'bootstrap/dist/css/bootstrap.css'
-import inventory from './inventory.mjs';
-import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Outlet, useNavigation } from 'react-router-dom';
 import Navbar from './Navbar';
+import BootstrapSpinner from './BootstrapSpinner';
+import inventoryLoader from './loaders';
 
 function App() {
 
-  const [salads, setSalads] = useState([]);
+  const [shoppingCart, setShoppingCart] = useState([]);
+  const [inventory, setInventory] = useState([]);
+  const navigation = useNavigation();
+  const loading = navigation.state === 'loading';
+
+  useEffect(() => {
+    inventoryLoader().then((ingredientGroups) =>
+      ingredientGroups.reduce((prev, curr) => ({ ...prev, ...curr }))
+    )
+    .then((allIngredients) => setInventory(allIngredients));  
+  }, []);
   
   const createShoppingBasket = (salads, inventory) => {
     return salads.map((salad) => {
@@ -36,8 +47,7 @@ function App() {
     });
   };
 
-  const shoppingBasket = createShoppingBasket(salads, inventory);
-
+  const shoppingBasket = createShoppingBasket(shoppingCart, inventory);
 
   return (
     <div className="container-fluid h-100 w-100 d-flex flex-column m-2">
@@ -45,7 +55,11 @@ function App() {
         <span className="fs-4">Salladsbaren deluxe</span>
         <Navbar />
       </header>
-      <Outlet context={{ inventory, salads, setSalads, shoppingBasket }}/>
+      {loading ? (
+        <BootstrapSpinner />
+      ) : (
+        <Outlet context={{ inventory, shoppingCart, setShoppingCart, shoppingBasket }} />
+      )}
       <footer className="p-2 mt-2 text-muted border-top fixed-bottom">
         EDAF90 - webprogrammering
       </footer>

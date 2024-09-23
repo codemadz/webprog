@@ -3,9 +3,10 @@ import ExtraSelection from './ExtraSelection';
 import SelectIngredient from './SelectIngredient';
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import Salad from './Salad';
 
 function ComposeSalad() {
-  const { inventory, salads, setSalads } = useOutletContext();
+  const { inventory, shoppingCart, setShoppingCart } = useOutletContext();
   const [success, setSuccess] = useState(false);
   const [foundation, setFoundation] = useState({});
   const [protein, setProtein] = useState({});
@@ -45,13 +46,14 @@ function ComposeSalad() {
   }
 
   const createSalad = () => {
-    const salad = {
-      foundation,
-      protein,
-      ...extra,
-      dressing
-    }
-    setSalads([...salads, salad]);
+    const extras = Object.keys(extra).filter((n) => extra[n]);
+    const ingredients = [foundation, protein, ...extras, dressing]
+    const salad = new Salad();
+    ingredients.forEach((ingredient) =>
+      salad.add(ingredient, inventory[ingredient])
+    );
+
+    setShoppingCart([...shoppingCart, salad]);
   }
 
   const handleSubmit = (event) => {
