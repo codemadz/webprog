@@ -4,10 +4,14 @@ import { Outlet, useNavigation } from 'react-router-dom';
 import Navbar from './Navbar';
 import BootstrapSpinner from './BootstrapSpinner';
 import inventoryLoader from './loaders';
+import Salad from './Salad';
 
 function App() {
 
-  const [shoppingCart, setShoppingCart] = useState([]);
+  const [shoppingCart, setShoppingCart] = useState(() => {
+    const savedCart = window.localStorage.getItem('shoppingCart');
+    return savedCart ? Salad.parse(savedCart) : [];
+  });
   const [inventory, setInventory] = useState([]);
   const navigation = useNavigation();
   const loading = navigation.state === 'loading';
@@ -18,6 +22,10 @@ function App() {
     )
     .then((allIngredients) => setInventory(allIngredients));  
   }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+  }, [shoppingCart]);
   
   return (
     <div className="container-fluid h-100 w-100 d-flex flex-column m-2">

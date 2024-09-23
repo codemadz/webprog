@@ -33,7 +33,12 @@ function ViewOrder() {
           setShowModal(true);
           setShoppingCart([]);
       });
-  }
+    }
+
+    function clearShoppingCart() {
+      window.localStorage.removeItem("shoppingCart");
+      setShoppingCart([]);
+    }
 
     return (
       <div>
@@ -54,7 +59,10 @@ function ViewOrder() {
         </div>
       </div>
         {shoppingCart.length !== 0 && (
-          <button onClick={validateOrder} className="btn btn-primary mt-4 m-2">Lägg beställning</button>  
+          <div>
+          <button onClick={validateOrder} className="btn btn-primary mt-4 m-2">Lägg beställning</button>
+          <button onClick={clearShoppingCart} className="btn btn-primary mt-4 m-2">Rensa varukorg</button>  
+          </div>
         )}
       </div>
     );
