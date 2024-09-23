@@ -95,7 +95,7 @@ function ComposeSalad() {
           <SelectIngredient label="Protein" onChange={handleProtein} value={protein} options={proteinList}/>
           <ExtraSelection inventory={inventory} extra={extra} setExtra={setExtra}/>
           <SelectIngredient label="Dressing" onChange={handleDressingChange} value={dressing} options={dressingList}/>
-          <button type="submit" className="btn btn-primary mt-4 m-2">Beställ</button>
+          <button type="submit" className="btn btn-primary mt-4 m-2">Lägg till i varukorgen</button>
           <button type="reset" className="btn btn-primary mt-4 m-2">Rensa</button>
           </fieldset>
         </form>

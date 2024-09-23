@@ -60,7 +60,7 @@ function ViewOrder() {
       </div>
         {shoppingCart.length !== 0 && (
           <div>
-          <button onClick={validateOrder} className="btn btn-primary mt-4 m-2">Lägg beställning</button>
+          <button onClick={validateOrder} className="btn btn-primary mt-4 m-2">Beställ</button>
           <button onClick={clearShoppingCart} className="btn btn-primary mt-4 m-2">Rensa varukorg</button>  
           </div>
         )}

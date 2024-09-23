@@ -38,7 +38,7 @@ function App() {
       ) : (
         <Outlet context={{ inventory, shoppingCart, setShoppingCart }} />
       )}
-      <footer className="p-2 mt-2 text-muted border-top fixed-bottom">
+      <footer className="p-2 mt-2 bg-white text-muted border-top fixed-bottom">
         EDAF90 - webprogrammering
       </footer>
     </div>
