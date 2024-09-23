@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import ExtraSelection from './ExtraSelection';
 import SelectIngredient from './SelectIngredient';
 import { useOutletContext, useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 import Salad from './Salad';
 
 function ComposeSalad() {
