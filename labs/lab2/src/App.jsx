@@ -13,6 +13,7 @@ function App() {
     return savedCart ? Salad.parse(savedCart) : [];
   });
   const [inventory, setInventory] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const navigation = useNavigation();
   const loading = navigation.state === 'loading';
 
@@ -36,7 +37,7 @@ function App() {
       {loading ? (
           <BootstrapSpinner />
       ) : (
-        <Outlet context={{ inventory, shoppingCart, setShoppingCart }} />
+        <Outlet context={{ inventory, shoppingCart, setShoppingCart, showModal, setShowModal }} />
       )}
       <footer className="p-2 mt-2 bg-white text-muted border-top fixed-bottom">
         EDAF90 - webprogrammering

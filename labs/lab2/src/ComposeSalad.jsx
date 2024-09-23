@@ -3,13 +3,15 @@ import ExtraSelection from './ExtraSelection';
 import SelectIngredient from './SelectIngredient';
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import Salad from './Salad';
+import CartModal from './CartModal';
 
 function ComposeSalad() {
-  const { inventory, shoppingCart, setShoppingCart } = useOutletContext();
+  const { inventory, shoppingCart, setShoppingCart, showModal, setShowModal } = useOutletContext();
   const [success, setSuccess] = useState(false);
   const [touched, setTouched] = useState(false);
   const navigate = useNavigate();
   const [saladId, setSaladId] = useState("");
+  const [modalClosed, setModalClosed] = useState(false);
 
   const [foundation, setFoundation] = useState("");
   const [protein, setProtein] = useState("");
@@ -72,6 +74,7 @@ function ComposeSalad() {
       setSuccess(false);
     } else {
       event.preventDefault();
+      setShowModal(true);
       setTouched(false);
       createSalad();
       clearForm();
@@ -80,15 +83,20 @@ function ComposeSalad() {
   }
 
   useEffect(() => {
-    if(success){
-      alert(`Din sallad är tillagd i varukorgen. Id: ${saladId}`);
+    if(success && modalClosed){
       navigate(`/view-order/confirm/${saladId}`);
     }
-  }, [success]);
+  }, [success, modalClosed]);
+
+  function handleModalClosed(){
+    setShowModal(false);
+    setModalClosed(true);
+  }
 
   return (
       <div className="row h-200 mb-2 mt-2 p-4 bg-light border rounded-3">
         <h2>Välj innehållet i din sallad</h2> 
+        <CartModal saladId={saladId} showModal={showModal} setShowModal={handleModalClosed} />
         <form onSubmit={handleSubmit} onReset={clearForm} noValidate className={touched ? "was-validated" : ""}>
           <fieldset className="col-md-12">
           <SelectIngredient label="Bas" onChange={handleFoundationChange} value={foundation} options={foundationList}/>

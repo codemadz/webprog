@@ -1,10 +1,9 @@
 import { useOutletContext } from "react-router-dom";
-import ConfirmationModal from "./ConfirmationModal";
+import OrderModal from "./OrderModal";
 import { useState } from "react";
 
 function ViewOrder() {
-    const { shoppingCart, setShoppingCart } = useOutletContext();
-    const [showModal, setShowModal] = useState(false);
+    const { shoppingCart, setShoppingCart, showModal, setShowModal } = useOutletContext();
     const [orderDetails, setOrderDetails] = useState({});
 
     const makeOrder = function () {
@@ -42,10 +41,10 @@ function ViewOrder() {
 
     return (
       <div>
-      <div className="w-100 h-100 mb-1 mt-4 p-4 bg-light border rounded-3" style={{ minHeight: '75vh', minWidth: '100vh'}}>
+      <div className="w-100 h-100 mb-1 mt-4 pt-5 p-4 bg-light border rounded-3" style={{ minHeight: '75vh', minWidth: '100vh'}}>
         <h2>Varukorgen</h2>
-        <div className="p-2 border rounded-2">
-        <ConfirmationModal orderDetails={orderDetails} showModal={showModal} setShowModal={setShowModal} />
+        <div className="p-2 mt-3 border rounded-2">
+        <OrderModal orderDetails={orderDetails} showModal={showModal} setShowModal={setShowModal} />
         {shoppingCart.length === 0 ? (
           <p type="text">Varukorgen är just nu tom.</p>
         ) : (
@@ -60,8 +59,8 @@ function ViewOrder() {
       </div>
         {shoppingCart.length !== 0 && (
           <div>
-          <button onClick={validateOrder} className="btn btn-primary mt-4 m-2">Beställ</button>
-          <button onClick={clearShoppingCart} className="btn btn-primary mt-4 m-2">Rensa varukorg</button>  
+          <button onClick={validateOrder} className="btn btn-primary mb-4 mt-4 m-2">Beställ</button>
+          <button onClick={clearShoppingCart} className="btn btn-primary mb-4 mt-4 m-2">Rensa varukorg</button>  
           </div>
         )}
       </div>
