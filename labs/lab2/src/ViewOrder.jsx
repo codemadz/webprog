@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router-dom";
-import OrderConfirmation from "./OrderConfirmation";
+import ConfirmationModal from "./ConfirmationModal";
 import { useState } from "react";
 
 function ViewOrder() {
@@ -40,7 +40,7 @@ function ViewOrder() {
       <div className="w-100 h-100 mb-1 mt-4 p-4 bg-light border rounded-3" style={{ minHeight: '75vh', minWidth: '100vh'}}>
         <h2>Varukorgen</h2>
         <div className="p-2 border rounded-2">
-        <OrderConfirmation orderDetails={orderDetails} showModal={showModal} setShowModal={setShowModal} />
+        <ConfirmationModal orderDetails={orderDetails} showModal={showModal} setShowModal={setShowModal} />
         {shoppingCart.length === 0 ? (
           <p type="text">Varukorgen är just nu tom.</p>
         ) : (

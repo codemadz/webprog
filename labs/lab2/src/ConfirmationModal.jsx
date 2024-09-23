@@ -1,6 +1,6 @@
 import { Modal, Button } from 'react-bootstrap';
 
-export default function OrderConfirmation({orderDetails, showModal, setShowModal}) {
+export default function ConfirmationModal({orderDetails, showModal, setShowModal}) {
 
     return (
         <Modal show={showModal} onHide={() => setShowModal(false)}>

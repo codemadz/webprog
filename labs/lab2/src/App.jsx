@@ -26,7 +26,7 @@ function App() {
         <Navbar />
       </header>
       {loading ? (
-        <BootstrapSpinner />
+          <BootstrapSpinner />
       ) : (
         <Outlet context={{ inventory, shoppingCart, setShoppingCart }} />
       )}
