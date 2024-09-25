@@ -41,12 +41,12 @@ function ViewOrder() {
 
     return (
       <div>
-      <div className="w-100 h-100 mb-1 mt-4 pt-5 p-4 bg-light border rounded-3" style={{ minHeight: '75vh', minWidth: '100vh'}}>
+      <div className="w-100 h-100 mb-1 mt-4 pt-5 p-4 bg-light border rounded-3" style={{ minHeight: '60vh', minWidth: '100vh'}}>
         <h2>Varukorgen</h2>
         <div className="p-2 mt-3 border rounded-2">
         <OrderModal orderDetails={orderDetails} showModal={showModal} setShowModal={setShowModal} />
         {shoppingCart.length === 0 ? (
-          <p type="text">Varukorgen är just nu tom.</p>
+          <p className="mt-3" type="text">Varukorgen är just nu tom.</p>
         ) : (
           shoppingCart.map((salad, index) => (
             <div key={index}>
@@ -55,6 +55,9 @@ function ViewOrder() {
             
           ))
         )}
+        </div>
+        <div>
+          <p className="mt-2 fw-bold">Totalt pris: {shoppingCart.reduce((acc, salad) => acc + salad.getPrice(), 0)}kr</p>
         </div>
       </div>
         {shoppingCart.length !== 0 && (
