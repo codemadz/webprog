@@ -24,7 +24,7 @@ function fetchCategory(category) {
     });
 };
 
-async function fetchIngredient(url, ingredient) {
+function fetchIngredient(url, ingredient) {
   return safeFetchJson(url + ingredient);
 };
 
