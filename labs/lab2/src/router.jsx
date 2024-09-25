@@ -23,7 +23,12 @@ const router = createBrowserRouter([
         ]
       }, {
         index: true,
-        element: <h1 className="text-bold text-center">Välkommen till Salladsbaren deluxe</h1>
+        element: 
+        <div>
+          <h1 className="text-bold text-center">Välkommen till Salladsbaren deluxe!</h1>
+          <h3 className="text-center mt-2">Tryck på &quot;Komponera din sallad&quot; för att börja beställa</h3>
+        </div>
+        
       }, {
         path: "*",
         element: <p>404 Not Found</p>

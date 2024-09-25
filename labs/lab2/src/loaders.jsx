@@ -1,16 +1,16 @@
 export default async function inventoryLoader() {
 
   const inventory = await Promise.all([
-    fetchInventory("foundations"),
-    fetchInventory("proteins"),
-    fetchInventory("dressings"),
-    fetchInventory("extras"),
+    fetchCategory("foundations"),
+    fetchCategory("proteins"),
+    fetchCategory("dressings"),
+    fetchCategory("extras"),
   ]);
   await new Promise(resolve => setTimeout(resolve, 500));
   return inventory;
 }
 
-function fetchInventory(category) {
+function fetchCategory(category) {
   let url = `http://localhost:8080/${category}/`;
   return safeFetchJson(url)
     .then((names) => {
